@@ -1,12 +1,12 @@
 /* Global Variables */
 const APIurl = "http://api.openweathermap.org/data/2.5/weather?zip=";
 const APIKey = "&appid=c69385de2a6968fd2990ab1c471a2eb2";
-let feelingInput = document.getElementById("feelings").innerText;
+
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-async function postData(url = '', datat= {}){
+async function postData(url = '', data= {}){
     const response = await fetch(url, {
         method: 'POST',
         credential: 'same-origin',
@@ -29,7 +29,11 @@ document.getElementById("generate").addEventListener("click", generateWeather);
 
 function generateWeather(e){
     let zipInput = document.getElementById("zip").value;
-    getWeather(APIurl, zipInput, APIKey);
+    let feelingInput = document.getElementById("feelings").value;
+    getWeather(APIurl, zipInput, APIKey)
+    .then(function(data){
+        postData('/showWeather', {feelings: feelingInput, date: newDate, temp: data.main.temp})
+    })
 }
 
 //asyn get function to get weather info from weather API

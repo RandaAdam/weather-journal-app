@@ -29,11 +29,18 @@ const server = app.listen(port, startServer);
 
 
 //post route 
-app.post('/add', postFunction );
+//TODO: it will be changed, the url?!!!!
+app.post('/showWeather', postFunction );
 
 function postFunction(req, res){
     //note  the data received here is the data comming from textboxes
-    projectData = req.body;
+    newEntry={
+        feelings : req.body.feelings,
+        temp : req.body.temp,
+        date : req.body.date
+    }
+    projectData = newEntry;
+    console.log(req.body);
 }
 
 //get route
@@ -41,4 +48,9 @@ app.get('/all', sendData);
 
 function sendData (request, response) {
     response.send(projectData);
-  }
+}
+
+//get route setup
+
+
+
