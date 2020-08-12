@@ -22,10 +22,10 @@ body{
 
 .entry{
     background: rgba(59, 74, 107, .4);
+    position: relative;
 }
 
 #entryHolder{
-
 }
 
 #date{
@@ -108,4 +108,4 @@ button:focus {
     color: #f0d43a; 
     font-family: 'Oswald', sans-serif;
 
-} 
+}  

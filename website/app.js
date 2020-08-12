@@ -29,11 +29,12 @@ document.getElementById("generate").addEventListener("click", generateWeather);
 
 function generateWeather(e){
     let zipInput = document.getElementById("zip").value;
-    let feelingInput = document.getElementById("feelings").value;
     getWeather(APIurl, zipInput, APIKey)
     .then(function(data){
+        let feelingInput = document.getElementById("feelings").value;
         postData('/showWeather', {feelings: feelingInput, date: newDate, temp: data.main.temp})
     })
+    .then(updateUI())
 }
 
 //asyn get function to get weather info from weather API
@@ -48,4 +49,14 @@ const getWeather = async (baseURL, zip, key)=>{
     }
 }
 
-//TODO: call postData onbuttonclick sending data in textboxes
+const updateUI = async()=>{
+    const request = await fetch('/all');
+    try{
+        const allData = await request.json();
+        document.getElementById('temp').innerHTML = allData.temp;
+        document.getElementById('content').innerHTML = allData.feelings;
+        document.getElementById('date').innerHTML = allData.date;
+    }catch(error){
+        console.log("error", error);
+    }
+}
